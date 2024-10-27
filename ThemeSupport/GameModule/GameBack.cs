@@ -176,7 +176,7 @@ public class GameBack : ScriptableObject
                 }
 
                 CardMap[obj.Card] = obj;
-                return;
+                continue;
             }
 
             var stats = obj.GetStats();
