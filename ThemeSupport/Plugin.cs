@@ -10,7 +10,7 @@ internal class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "Pikachu.CSTIMod.ThemeSupport";
     public const string PluginName = "ThemeSupport";
-    public const string PluginVersion = "1.1.1";
+    public const string PluginVersion = "1.1.2";
 
     public static Plugin Instance = null!;
     public static ManualLogSource Log = null!;

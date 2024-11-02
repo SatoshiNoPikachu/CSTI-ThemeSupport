@@ -11,8 +11,6 @@ public class BackCtrl : MBSingleton<BackCtrl>
 {
     public static void Create()
     {
-        Plugin.Log.LogMessage("Create");
-
         var scene = SceneManager.GetSceneByPath("Assets/Scenes/GameScene.unity");
         if (!scene.IsValid()) return;
 
@@ -64,8 +62,11 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
     private void Awake()
     {
+        var env = this.GetComponent<Image>("EnvBGImage");
+        env.transform.Find("Frame")?.gameObject.SetActive(false);
+        
         _baseBack = new BackImage(this.GetComponent<Image>("BaseBG"), BackType.Base);
-        _envBack = new BackImage(this.GetComponent<Image>("EnvBGImage"), BackType.Env);
+        _envBack = new BackImage(env, BackType.Env);
         _handBack = new BackImage(this.GetComponent<Image>("HandBG"), BackType.Hand);
         _expBack = new BackImage(this.GetComponent<Image>("ExplorableBG"), BackType.Exp);
         _filterLeftBack = new BackImage(this.GetComponent<Image>("LeftFiltersBG"), BackType.FilterLeft);
@@ -177,7 +178,7 @@ public class BackCtrl : MBSingleton<BackCtrl>
                 {
                     if (image.Set != set) continue;
                     UpdateBack(image);
-                    break;
+                    continue;
                 }
 
                 if (image.Set is null)
@@ -234,5 +235,10 @@ public class BackCtrl : MBSingleton<BackCtrl>
         }
 
         return targetSet;
+    }
+
+    public static void HideLocationSlotImg()
+    {
+        GraphicsManager.Instance?.LocationSlotSettings?.Visuals?.transform.Find("Image")?.gameObject.SetActive(false);
     }
 }

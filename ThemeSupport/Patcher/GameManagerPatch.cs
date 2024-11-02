@@ -11,6 +11,7 @@ public static class GameManagerPatch
     public static void Awake_Prefix()
     {
         BackCtrl.Create();
+        BackCtrl.HideLocationSlotImg();
     }
 
     [HarmonyPostfix, HarmonyPatch("RemoveCard")]
