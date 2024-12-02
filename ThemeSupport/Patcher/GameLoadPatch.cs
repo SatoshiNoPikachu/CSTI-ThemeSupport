@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using ThemeSupport.Data;
+using ThemeSupport.ReplaceModule;
 
 namespace ThemeSupport.Patcher;
 
@@ -10,5 +11,6 @@ public static class GameLoadPatch
     public static void LoadMainGameData_Postfix()
     {
         Loader.LoadAllData(DataCatalog.Catalog);
+        ImageReplacer.LoadReplaceData();
     }
 }
