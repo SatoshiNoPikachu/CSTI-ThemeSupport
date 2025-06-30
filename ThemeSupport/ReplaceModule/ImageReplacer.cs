@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using LitJson;
-using ThemeSupport.Data;
+using ModCore.Data;
 using UnityEngine;
 
 namespace ThemeSupport.ReplaceModule;
@@ -36,6 +36,9 @@ public static class ImageReplacer
 
         if (data.ContainsKey("GameStat.DefaultStatusIcon"))
             ReplaceStatDefIcon(data["GameStat.DefaultStatusIcon"]);
+
+        if (data.ContainsKey("GameStat.Statuses"))
+            ReplaceStatStatusesIcon(data["GameStat.Statuses"]);
 
         if (data.ContainsKey("CardData.DefaultLiquidImage"))
             ReplaceCardDefLiqImage(data["CardData.DefaultLiquidImage"]);
@@ -114,6 +117,33 @@ public static class ImageReplacer
             if (!img) continue;
 
             stat.DefaultStatusIcon = img;
+        }
+    }
+
+    private static void ReplaceStatStatusesIcon(JsonData data)
+    {
+        if (!data.IsObject) return;
+
+        foreach (var uid in data.Keys)
+        {
+            var names = data[uid];
+            if (!names.IsArray) continue;
+
+            var status = UniqueIDScriptable.GetFromID<GameStat>(uid)?.Statuses;
+            if (status is null) continue;
+
+            for (var i = 0; i < names.Count; i++)
+            {
+                if (i >= status.Length) break;
+
+                var name = names[i];
+                if (name?.IsString is null or false) continue;
+
+                var img = Database.GetData<Sprite>((string)name);
+                if (!img) continue;
+
+                status[i].Icon = img;
+            }
         }
     }
 

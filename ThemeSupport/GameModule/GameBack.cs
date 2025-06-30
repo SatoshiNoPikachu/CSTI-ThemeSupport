@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ThemeSupport.Data;
+using ModCore.Data;
 using UnityEngine;
 
 namespace ThemeSupport.GameModule;
@@ -10,6 +10,7 @@ namespace ThemeSupport.GameModule;
 /// 游戏背景
 /// </summary>
 [Serializable]
+[DataInfo("Theme-GameBack")]
 public class GameBack : ScriptableObject
 {
     /// <summary>
@@ -168,7 +169,7 @@ public class GameBack : ScriptableObject
             if (card is not null)
             {
                 if (card.AlwaysUpdate) continue;
-                
+
                 if (CardMap.ContainsKey(card))
                 {
                     Plugin.Log.LogWarning($"Card {card.name} has multiple GameBack binding.");

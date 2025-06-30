@@ -51,8 +51,8 @@
           <HintPath>lib\LitJSON.dll</HintPath>
           <Private>False</Private>
         </Reference>
-        <Reference Include="ModLoader">
-          <HintPath>lib\ModLoader.dll</HintPath>
+        <Reference Include="ModCore">
+          <HintPath>lib\ModCore.dll</HintPath>
           <Private>False</Private>
         </Reference>
         <Reference Include="System"/>
@@ -121,19 +121,12 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Data\Database.cs" />
-        <Compile Include="Data\DataCatalog.cs" />
-        <Compile Include="Data\DataInfo.cs" />
-        <Compile Include="Data\Loader.cs" />
-        <Compile Include="Data\TextureLoader.cs" />
         <Compile Include="GameModule\BackCtrl.cs" />
         <Compile Include="GameModule\BackSet.cs" />
         <Compile Include="GameModule\BackType.cs" />
         <Compile Include="GameModule\GameBack.cs" />
-        <Compile Include="Helper.cs"/>
         <Compile Include="MainMenuModule\Cover.cs" />
         <Compile Include="MainMenuModule\MainMenuCtrl.cs" />
-        <Compile Include="Patcher\GameLoadPatch.cs"/>
         <Compile Include="Patcher\GameManagerPatch.cs" />
         <Compile Include="Patcher\InGameCardBasePatch.cs" />
         <Compile Include="Patcher\MainMenuPatch.cs" />

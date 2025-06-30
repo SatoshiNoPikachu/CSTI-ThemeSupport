@@ -50,9 +50,9 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
     private BackImage _expBack;
 
-    private BackImage _filterLeftBack;
-
-    private BackImage _filterRightBack;
+    // private BackImage _filterLeftBack;
+    //
+    // private BackImage _filterRightBack;
 
     private BackImage _bookmarkLeftBack;
 
@@ -69,8 +69,8 @@ public class BackCtrl : MBSingleton<BackCtrl>
         _envBack = new BackImage(env, BackType.Env);
         _handBack = new BackImage(this.GetComponent<Image>("HandBG"), BackType.Hand);
         _expBack = new BackImage(this.GetComponent<Image>("ExplorableBG"), BackType.Exp);
-        _filterLeftBack = new BackImage(this.GetComponent<Image>("LeftFiltersBG"), BackType.FilterLeft);
-        _filterRightBack = new BackImage(this.GetComponent<Image>("RightFiltersBG"), BackType.FilterRight);
+        // _filterLeftBack = new BackImage(this.GetComponent<Image>("LeftFiltersBG"), BackType.FilterLeft);
+        // _filterRightBack = new BackImage(this.GetComponent<Image>("RightFiltersBG"), BackType.FilterRight);
         _bookmarkLeftBack = new BackImage(this.GetComponent<Image>("BookmarkMenuLeft"), BackType.BookmarkLeft);
         _bookmarkRightBack = new BackImage(this.GetComponent<Image>("BookmarkMenuRight"), BackType.BookmarkRight);
     }
@@ -99,8 +99,8 @@ public class BackCtrl : MBSingleton<BackCtrl>
         yield return _envBack;
         yield return _handBack;
         yield return _expBack;
-        yield return _filterLeftBack;
-        yield return _filterRightBack;
+        // yield return _filterLeftBack;
+        // yield return _filterRightBack;
         yield return _bookmarkLeftBack;
         yield return _bookmarkRightBack;
     }

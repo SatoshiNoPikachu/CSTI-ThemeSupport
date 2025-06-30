@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ThemeSupport.Data;
+using ModCore.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +10,7 @@ namespace ThemeSupport.MainMenuModule;
 /// 封面
 /// </summary>
 [Serializable]
+[DataInfo("Theme-Cover")]
 public class Cover : ScriptableObject
 {
     /// <summary>
@@ -19,28 +20,31 @@ public class Cover : ScriptableObject
     public static Cover GetRandomCover()
     {
         var covers = Database.GetData<Cover>();
+        if (covers is null) return null;
         return covers.Count == 0 ? null : covers.Values.ToArray()[Random.Range(0, covers.Count)];
     }
 
     /// <summary>
     /// 背景图像
     /// </summary>
-    public Sprite BackImage => Database.GetData<Sprite>(BackImageName);
-    
+    public Sprite BackImage;
+    // public Sprite BackImage => Database.GetData<Sprite>(BackImageName);
+
     /// <summary>
     /// 封面图像
     /// </summary>
-    public Sprite CoverImage => Database.GetData<Sprite>(CoverImageName);
-    
-    /// <summary>
-    /// 背景图像名称
-    /// </summary>
-    public string BackImageName;
-    
-    /// <summary>
-    /// 封面图像名称
-    /// </summary>
-    public string CoverImageName;
+    public Sprite CoverImage;
+    // public Sprite CoverImage => Database.GetData<Sprite>(CoverImageName);
+
+    // /// <summary>
+    // /// 背景图像名称
+    // /// </summary>
+    // public string BackImageName;
+    //
+    // /// <summary>
+    // /// 封面图像名称
+    // /// </summary>
+    // public string CoverImageName;
 
     /// <summary>
     /// 标题

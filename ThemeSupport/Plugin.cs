@@ -1,28 +1,27 @@
-﻿using System.IO;
-using BepInEx;
-using BepInEx.Logging;
+﻿using BepInEx;
 using HarmonyLib;
+using ModCore;
+using ModCore.Data;
+using ThemeSupport.ReplaceModule;
 
 namespace ThemeSupport;
 
 [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
-internal class Plugin : BaseUnityPlugin
+internal class Plugin : BaseUnityPlugin<Plugin>
 {
-    private const string PluginGuid = "Pikachu.CSTIMod.ThemeSupport";
+    private const string PluginGuid = "Pikachu.CSFF.ThemeSupport";
     public const string PluginName = "ThemeSupport";
-    public const string PluginVersion = "1.1.3";
+    public const string PluginVersion = "0.1.1";
 
-    public static Plugin Instance = null!;
-    public static ManualLogSource Log = null!;
     private static readonly Harmony Harmony = new(PluginGuid);
 
-    public static string PluginPath => Path.GetDirectoryName(Instance.Info.Location);
-
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
-        Log = Logger;
+        base.Awake();
         Harmony.PatchAll();
-        Log.LogInfo($"Plugin {PluginName} is loaded!");
+
+        Loader.LoadCompleteEvent += ImageReplacer.LoadReplaceData;
+
+        Log.LogMessage($"Plugin {PluginName} is loaded!");
     }
 }
