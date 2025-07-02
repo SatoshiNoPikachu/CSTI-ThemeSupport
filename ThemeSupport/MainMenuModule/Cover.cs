@@ -28,23 +28,11 @@ public class Cover : ScriptableObject
     /// 背景图像
     /// </summary>
     public Sprite BackImage;
-    // public Sprite BackImage => Database.GetData<Sprite>(BackImageName);
 
     /// <summary>
     /// 封面图像
     /// </summary>
     public Sprite CoverImage;
-    // public Sprite CoverImage => Database.GetData<Sprite>(CoverImageName);
-
-    // /// <summary>
-    // /// 背景图像名称
-    // /// </summary>
-    // public string BackImageName;
-    //
-    // /// <summary>
-    // /// 封面图像名称
-    // /// </summary>
-    // public string CoverImageName;
 
     /// <summary>
     /// 标题

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using LitJson;
 using ModCore.Data;
+using ModCore.Services;
 using UnityEngine;
 
 namespace ThemeSupport.ReplaceModule;
@@ -9,42 +10,40 @@ public static class ImageReplacer
 {
     public static void LoadReplaceData()
     {
-        var modDirs = new DirectoryInfo(BepInEx.Paths.PluginPath).GetDirectories();
-
-        foreach (var modDir in modDirs)
+        foreach (var mod in ModService.GetMods())
         {
-            var path = Path.Combine(modDir.FullName, "ImageReplaceData.json");
+            var path = Path.Combine(mod.RootPath, "ImageReplaceData.json");
             if (!File.Exists(path)) continue;
 
             var data = JsonMapper.ToObject(File.ReadAllText(path));
-            Replace(data);
+            Replace(data, mod);
         }
     }
 
-    private static void Replace(JsonData data)
+    private static void Replace(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
         if (data.ContainsKey("CardData.CardImage"))
-            ReplaceCardImage(data["CardData.CardImage"]);
+            ReplaceCardImage(data["CardData.CardImage"], mod);
 
         if (data.ContainsKey("Encounter.EncounterImage"))
-            ReplaceEncounterImage(data["Encounter.EncounterImage"]);
+            ReplaceEncounterImage(data["Encounter.EncounterImage"], mod);
 
         if (data.ContainsKey("CharacterPerk.PerkIcon"))
-            ReplacePerkIcon(data["CharacterPerk.PerkIcon"]);
+            ReplacePerkIcon(data["CharacterPerk.PerkIcon"], mod);
 
         if (data.ContainsKey("GameStat.DefaultStatusIcon"))
-            ReplaceStatDefIcon(data["GameStat.DefaultStatusIcon"]);
+            ReplaceStatDefIcon(data["GameStat.DefaultStatusIcon"], mod);
 
         if (data.ContainsKey("GameStat.Statuses"))
-            ReplaceStatStatusesIcon(data["GameStat.Statuses"]);
+            ReplaceStatStatusesIcon(data["GameStat.Statuses"], mod);
 
         if (data.ContainsKey("CardData.DefaultLiquidImage"))
-            ReplaceCardDefLiqImage(data["CardData.DefaultLiquidImage"]);
+            ReplaceCardDefLiqImage(data["CardData.DefaultLiquidImage"], mod);
     }
 
-    private static void ReplaceCardImage(JsonData data)
+    private static void ReplaceCardImage(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -56,14 +55,14 @@ public static class ImageReplacer
             var name = data[uid];
             if (!name.IsString) continue;
 
-            var img = Database.GetData<Sprite>((string)name);
+            var img = Database.GetData<Sprite>((string)name, mod);
             if (!img) continue;
 
             card.CardImage = img;
         }
     }
 
-    private static void ReplaceEncounterImage(JsonData data)
+    private static void ReplaceEncounterImage(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -75,14 +74,14 @@ public static class ImageReplacer
             var name = data[uid];
             if (!name.IsString) continue;
 
-            var img = Database.GetData<Sprite>((string)name);
+            var img = Database.GetData<Sprite>((string)name, mod);
             if (!img) continue;
 
             encounter.EncounterImage = img;
         }
     }
 
-    private static void ReplacePerkIcon(JsonData data)
+    private static void ReplacePerkIcon(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -94,14 +93,14 @@ public static class ImageReplacer
             var name = data[uid];
             if (!name.IsString) continue;
 
-            var img = Database.GetData<Sprite>((string)name);
+            var img = Database.GetData<Sprite>((string)name, mod);
             if (!img) continue;
 
             perk.PerkIcon = img;
         }
     }
 
-    private static void ReplaceStatDefIcon(JsonData data)
+    private static void ReplaceStatDefIcon(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -113,14 +112,14 @@ public static class ImageReplacer
             var name = data[uid];
             if (!name.IsString) continue;
 
-            var img = Database.GetData<Sprite>((string)name);
+            var img = Database.GetData<Sprite>((string)name, mod);
             if (!img) continue;
 
             stat.DefaultStatusIcon = img;
         }
     }
 
-    private static void ReplaceStatStatusesIcon(JsonData data)
+    private static void ReplaceStatStatusesIcon(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -139,7 +138,7 @@ public static class ImageReplacer
                 var name = names[i];
                 if (name?.IsString is null or false) continue;
 
-                var img = Database.GetData<Sprite>((string)name);
+                var img = Database.GetData<Sprite>((string)name, mod);
                 if (!img) continue;
 
                 status[i].Icon = img;
@@ -147,7 +146,7 @@ public static class ImageReplacer
         }
     }
 
-    private static void ReplaceCardDefLiqImage(JsonData data)
+    private static void ReplaceCardDefLiqImage(JsonData data, ModData mod)
     {
         if (!data.IsObject) return;
 
@@ -159,7 +158,7 @@ public static class ImageReplacer
             var name = data[uid];
             if (!name.IsString) continue;
 
-            var img = Database.GetData<Sprite>((string)name);
+            var img = Database.GetData<Sprite>((string)name, mod);
             if (!img) continue;
 
             card.DefaultLiquidImage = img;

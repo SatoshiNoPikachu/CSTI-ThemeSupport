@@ -13,12 +13,6 @@ public class BackSet
     /// 图像
     /// </summary>
     public Sprite Image;
-    // public Sprite Image => Database.GetData<Sprite>(ImageName);
-
-    // /// <summary>
-    // /// 图像名称
-    // /// </summary>
-    // public string ImageName;
 
     /// <summary>
     /// 优先度
