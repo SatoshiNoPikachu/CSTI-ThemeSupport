@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ThemeSupport.GameModule;
+namespace ThemeSupport.GameBackModule;
 
 public class BackCtrl : MBSingleton<BackCtrl>
 {
@@ -129,7 +129,6 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
         var card = cardBase.CardModel;
         if (!card || card.AlwaysUpdate) return;
-        // if (cardBase.Environment != GameManager.Instance.CurrentEnvironment) return;
 
         var back = GameBack.GetBack(card);
         if (!back) return;

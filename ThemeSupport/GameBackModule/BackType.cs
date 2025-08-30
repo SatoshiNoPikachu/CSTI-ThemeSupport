@@ -1,4 +1,4 @@
-﻿namespace ThemeSupport.GameModule;
+﻿namespace ThemeSupport.GameBackModule;
 
 public enum BackType
 {

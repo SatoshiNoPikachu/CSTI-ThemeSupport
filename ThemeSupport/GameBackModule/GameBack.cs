@@ -4,7 +4,7 @@ using System.Linq;
 using ModCore.Data;
 using UnityEngine;
 
-namespace ThemeSupport.GameModule;
+namespace ThemeSupport.GameBackModule;
 
 /// <summary>
 /// 游戏背景
@@ -162,7 +162,9 @@ public class GameBack : ScriptableObject
     {
         CardMap.Clear();
 
-        var data = Database.GetData<GameBack>().Values;
+        var data = Database.GetData<GameBack>()?.Values;
+        if (data is null) return;
+        
         foreach (var obj in data)
         {
             var card = obj.Card;
@@ -176,7 +178,7 @@ public class GameBack : ScriptableObject
                     continue;
                 }
 
-                CardMap[obj.Card] = obj;
+                CardMap[card] = obj;
                 continue;
             }
 

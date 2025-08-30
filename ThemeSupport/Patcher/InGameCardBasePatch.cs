@@ -1,10 +1,10 @@
 ﻿using HarmonyLib;
-using ThemeSupport.GameModule;
+using ThemeSupport.GameBackModule;
 
 namespace ThemeSupport.Patcher;
 
 [HarmonyPatch(typeof(InGameCardBase))]
-public static class InGameCardBasePatch
+internal static class InGameCardBasePatch
 {
     [HarmonyPostfix, HarmonyPatch("Init")]
     public static void Init_Postfix(InGameCardBase __instance)

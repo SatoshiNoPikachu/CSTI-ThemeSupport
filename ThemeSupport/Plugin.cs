@@ -13,7 +13,7 @@ internal class Plugin : BaseUnityPlugin<Plugin>
 {
     private const string PluginGuid = "Pikachu.CSTIMod.ThemeSupport";
     public const string PluginName = "ThemeSupport";
-    public const string PluginVersion = "2.0.1";
+    public const string PluginVersion = "2.0.2";
 
     private static readonly Harmony Harmony = new(PluginGuid);
 

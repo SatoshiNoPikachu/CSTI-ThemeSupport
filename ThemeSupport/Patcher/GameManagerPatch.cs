@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using HarmonyLib;
-using ThemeSupport.GameModule;
+using ThemeSupport.GameBackModule;
 
 namespace ThemeSupport.Patcher;
 
 [HarmonyPatch(typeof(GameManager))]
-public static class GameManagerPatch
+internal static class GameManagerPatch
 {
     [HarmonyPrefix, HarmonyPatch("Awake")]
     public static void Awake_Prefix()

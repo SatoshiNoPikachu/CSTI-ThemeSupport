@@ -20,8 +20,7 @@ public class Cover : ScriptableObject
     public static Cover GetRandomCover()
     {
         var covers = Database.GetData<Cover>();
-        if (covers is null) return null;
-        return covers.Count == 0 ? null : covers.Values.ToArray()[Random.Range(0, covers.Count)];
+        return covers?.Count is 0 or null ? null : covers.Values.ToArray()[Random.Range(0, covers.Count)];
     }
 
     /// <summary>

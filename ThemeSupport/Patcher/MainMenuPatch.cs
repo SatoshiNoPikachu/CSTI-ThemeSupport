@@ -4,7 +4,7 @@ using ThemeSupport.MainMenuModule;
 namespace ThemeSupport.Patcher;
 
 [HarmonyPatch(typeof(MainMenu))]
-public static class MainMenuPatch
+internal static class MainMenuPatch
 {
     [HarmonyPostfix, HarmonyPatch("Awake")]
     public static void Awake_Postfix(MainMenu __instance)

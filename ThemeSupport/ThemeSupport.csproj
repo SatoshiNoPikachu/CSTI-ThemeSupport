@@ -121,12 +121,14 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="GameModule\BackCtrl.cs" />
-        <Compile Include="GameModule\BackSet.cs" />
-        <Compile Include="GameModule\BackType.cs" />
-        <Compile Include="GameModule\GameBack.cs" />
+        <Compile Include="GameBackModule\BackCtrl.cs" />
+        <Compile Include="GameBackModule\BackSet.cs" />
+        <Compile Include="GameBackModule\BackType.cs" />
+        <Compile Include="GameBackModule\GameBack.cs" />
+        <Compile Include="GameModule\CardUniEx.cs" />
         <Compile Include="MainMenuModule\Cover.cs" />
         <Compile Include="MainMenuModule\MainMenuCtrl.cs" />
+        <Compile Include="Patcher\CardGraphicsPatch.cs" />
         <Compile Include="Patcher\GameManagerPatch.cs" />
         <Compile Include="Patcher\InGameCardBasePatch.cs" />
         <Compile Include="Patcher\MainMenuPatch.cs" />

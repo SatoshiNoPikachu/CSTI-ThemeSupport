@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ThemeSupport.GameModule;
+namespace ThemeSupport.GameBackModule;
 
 /// <summary>
 /// 背景设置
