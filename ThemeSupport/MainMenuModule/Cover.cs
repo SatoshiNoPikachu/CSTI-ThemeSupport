@@ -17,21 +17,21 @@ public class Cover : ScriptableObject
     /// 获取随机封面
     /// </summary>
     /// <returns>封面</returns>
-    public static Cover GetRandomCover()
+    public static Cover? GetRandomCover()
     {
         var covers = Database.GetData<Cover>();
-        return covers?.Count is 0 or null ? null : covers.Values.ToArray()[Random.Range(0, covers.Count)];
+        return covers?.Count is 0 or null ? null : covers.Values.ElementAt(Random.Range(0, covers.Count));
     }
 
     /// <summary>
     /// 背景图像
     /// </summary>
-    public Sprite BackImage;
+    public Sprite? BackImage;
 
     /// <summary>
     /// 封面图像
     /// </summary>
-    public Sprite CoverImage;
+    public Sprite? CoverImage;
 
     /// <summary>
     /// 标题
@@ -41,5 +41,5 @@ public class Cover : ScriptableObject
     /// <summary>
     /// 背景音乐
     /// </summary>
-    public AudioClip BGM;
+    public AudioClip? BGM;
 }

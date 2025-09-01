@@ -12,7 +12,7 @@ public class BackSet
     /// <summary>
     /// 图像
     /// </summary>
-    public Sprite Image;
+    public Sprite? Image;
 
     /// <summary>
     /// 优先度

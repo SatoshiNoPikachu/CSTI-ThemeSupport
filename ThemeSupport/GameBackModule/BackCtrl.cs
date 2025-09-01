@@ -21,42 +21,42 @@ public class BackCtrl : MBSingleton<BackCtrl>
         main?.transform.Find("ShakeParent/StaticBackground")?.gameObject.AddComponent<BackCtrl>();
     }
 
-    private class BackImage(Image image, BackType type)
+    private class BackImage(Image? image, BackType type)
     {
         public BackType Type { get; } = type;
 
-        public BackSet Set;
+        public BackSet? Set;
 
-        private readonly Sprite _def = image.sprite;
+        private readonly Sprite? _def = image?.sprite;
 
         public void Setup(BackSet set)
         {
             Set = set;
-            image.sprite = set.Image;
+            image?.sprite = set.Image;
         }
 
         public void Reset()
         {
             Set = null;
-            image.sprite = _def;
+            image?.sprite = _def;
         }
     }
 
-    private BackImage _baseBack;
+    private BackImage? _baseBack;
 
-    private BackImage _envBack;
+    private BackImage? _envBack;
 
-    private BackImage _handBack;
+    private BackImage? _handBack;
 
-    private BackImage _expBack;
+    private BackImage? _expBack;
 
-    private BackImage _filterLeftBack;
+    private BackImage? _filterLeftBack;
 
-    private BackImage _filterRightBack;
+    private BackImage? _filterRightBack;
 
-    private BackImage _bookmarkLeftBack;
+    private BackImage? _bookmarkLeftBack;
 
-    private BackImage _bookmarkRightBack;
+    private BackImage? _bookmarkRightBack;
 
     private readonly Dictionary<GameBack, int> _cardMap = [];
 
@@ -89,11 +89,12 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
         foreach (var image in GetBackImages())
         {
+            if (image is null) continue;
             UpdateBack(image);
         }
     }
 
-    private IEnumerable<BackImage> GetBackImages()
+    private IEnumerable<BackImage?> GetBackImages()
     {
         yield return _baseBack;
         yield return _envBack;
@@ -105,33 +106,35 @@ public class BackCtrl : MBSingleton<BackCtrl>
         yield return _bookmarkRightBack;
     }
 
-    public void OnRemoveCard(InGameCardBase cardBase)
+    public void OnRemoveCard(InGameCardBase? cardBase)
     {
         var card = cardBase?.CardModel;
         if (card is null) return;
 
         var back = GameBack.GetBack(card);
-        if (!back || !_cardMap.ContainsKey(back)) return;
+        if (back == null) return;
+        if (!_cardMap.TryGetValue(back, out var count)) return;
 
-        _cardMap[back]--;
-        if (_cardMap[back] > 0) return;
+        count--;
+        _cardMap[back] = count;
+        if (count > 0) return;
 
         foreach (var image in GetBackImages())
         {
-            if (image.Set != back[image.Type]) continue;
+            if (image is null || image.Set != back[image.Type]) continue;
             UpdateBack(image);
         }
     }
 
-    public void OnCardInit(InGameCardBase cardBase)
+    public void OnCardInit(InGameCardBase? cardBase)
     {
         if (!cardBase) return;
 
-        var card = cardBase.CardModel;
+        var card = cardBase!.CardModel;
         if (!card || card.AlwaysUpdate) return;
 
         var back = GameBack.GetBack(card);
-        if (!back) return;
+        if (back == null) return;
 
         if (_cardMap.ContainsKey(back)) _cardMap[back]++;
         else _cardMap[back] = 1;
@@ -141,6 +144,8 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
         foreach (var image in GetBackImages())
         {
+            if (image is null) continue;
+
             var set = back[image.Type];
             if (set?.Image is null) continue;
 
@@ -154,11 +159,11 @@ public class BackCtrl : MBSingleton<BackCtrl>
         }
     }
 
-    public void OnStatChange(InGameStat inGameStat)
+    public void OnStatChange(InGameStat? inGameStat)
     {
         if (!inGameStat) return;
 
-        var stat = inGameStat.StatModel;
+        var stat = inGameStat!.StatModel;
         if (!stat) return;
 
         var backs = GameBack.GetBack(stat);
@@ -170,6 +175,8 @@ public class BackCtrl : MBSingleton<BackCtrl>
 
             foreach (var image in GetBackImages())
             {
+                if (image is null) continue;
+
                 var set = back[image.Type];
                 if (set?.Image is null) continue;
 
@@ -198,9 +205,9 @@ public class BackCtrl : MBSingleton<BackCtrl>
         else image.Setup(set);
     }
 
-    private BackSet CheckBacks(BackType type)
+    private BackSet? CheckBacks(BackType type)
     {
-        BackSet targetSet = null;
+        BackSet? targetSet = null;
 
         foreach (var (back, num) in _cardMap)
         {

@@ -8,7 +8,12 @@ namespace ThemeSupport.ReplaceModule;
 
 public static class ImageReplacer
 {
-    public static void LoadReplaceData()
+    public static void Run()
+    {
+        LoadReplaceData();
+    }
+
+    private static void LoadReplaceData()
     {
         foreach (var mod in ModService.GetMods())
         {

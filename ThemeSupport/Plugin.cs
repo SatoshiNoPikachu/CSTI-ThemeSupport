@@ -8,12 +8,12 @@ namespace ThemeSupport;
 
 [BepInDependency("Pikachu.CSTI.ModCore")]
 [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
-[ModNamespace(PluginName)]
+[ModNamespace("ThemeSupport")]
 internal class Plugin : BaseUnityPlugin<Plugin>
 {
     private const string PluginGuid = "Pikachu.CSTIMod.ThemeSupport";
     public const string PluginName = "ThemeSupport";
-    public const string PluginVersion = "2.0.2";
+    public const string PluginVersion = "3.0.0";
 
     private static readonly Harmony Harmony = new(PluginGuid);
 
@@ -21,6 +21,6 @@ internal class Plugin : BaseUnityPlugin<Plugin>
     {
         Harmony.PatchAll();
 
-        Loader.LoadCompleteEvent += ImageReplacer.LoadReplaceData;
+        Loader.LoadCompleteEvent += ImageReplacer.Run;
     }
 }

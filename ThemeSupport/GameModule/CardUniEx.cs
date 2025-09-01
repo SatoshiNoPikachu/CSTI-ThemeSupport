@@ -11,7 +11,7 @@ public class CardUniEx : ScriptableObject
 {
     private static readonly Dictionary<CardData, CardUniEx> CardMap = [];
 
-    public CardData Card;
+    public CardData? Card;
 
     public bool IsHideInventoryInfo;
 
@@ -29,7 +29,7 @@ public class CardUniEx : ScriptableObject
 
         foreach (var obj in data)
         {
-            var card = obj.Card;
+            var card = obj.Card!;
             if (!card) continue;
 
             if (CardMap.ContainsKey(card))
@@ -42,14 +42,14 @@ public class CardUniEx : ScriptableObject
         }
     }
 
-    public static void OnUpdateInventoryInfo(CardGraphics cg)
+    public static void OnUpdateInventoryInfo(CardGraphics? cg)
     {
         var card = cg?.CardLogic?.CardModel;
         if (card is null) return;
         if (!CardMap.TryGetValue(card, out var ex)) return;
         if (!ex.IsHideInventoryInfo) return;
         
-        cg.InventoryBarIndicatorParent?.SetActive(false);
+        cg!.InventoryBarIndicatorParent?.SetActive(false);
         cg.InventoryIndicatorsParent?.gameObject.SetActive(false);
     }
 }

@@ -31,52 +31,52 @@ public class GameBack : ScriptableObject
     /// <summary>
     /// 绑定卡牌
     /// </summary>
-    public CardData Card;
+    public CardData? Card;
 
     /// <summary>
     /// 基地背景
     /// </summary>
-    public BackSet BaseSet;
+    public BackSet? BaseSet;
 
     /// <summary>
     /// 场景背景
     /// </summary>
-    public BackSet EnvSet;
+    public BackSet? EnvSet;
 
     /// <summary>
     /// 手牌背景
     /// </summary>
-    public BackSet HandSet;
+    public BackSet? HandSet;
 
     /// <summary>
     /// 探索背景
     /// </summary>
-    public BackSet ExpSet;
+    public BackSet? ExpSet;
 
     /// <summary>
     /// 过滤器背景左
     /// </summary>
-    public BackSet FilterLeftSet;
+    public BackSet? FilterLeftSet;
 
     /// <summary>
     /// 过滤器背景右
     /// </summary>
-    public BackSet FilterRightSet;
+    public BackSet? FilterRightSet;
 
     /// <summary>
     /// 书签背景左
     /// </summary>
-    public BackSet BookmarkLeftSet;
+    public BackSet? BookmarkLeftSet;
 
     /// <summary>
     /// 书签背景右
     /// </summary>
-    public BackSet BookmarkRightSet;
+    public BackSet? BookmarkRightSet;
 
     /// <summary>
     /// 条件组
     /// </summary>
-    public ConditionSet[] ConditionSets;
+    public ConditionSet?[]? ConditionSets;
 
     /// <summary>
     /// 条件设置
@@ -87,7 +87,7 @@ public class GameBack : ScriptableObject
         /// <summary>
         /// 状态条件组
         /// </summary>
-        public StatCondition[] StatConditions;
+        public StatCondition?[]? StatConditions;
 
         /// <summary>
         /// 检查条件是否均满足
@@ -110,7 +110,7 @@ public class GameBack : ScriptableObject
 
             foreach (var condition in StatConditions)
             {
-                if (!condition?.Stat) continue;
+                if (condition?.Stat == null) continue;
                 set.Add(condition.Stat);
             }
 
@@ -127,7 +127,7 @@ public class GameBack : ScriptableObject
         /// <summary>
         /// 状态
         /// </summary>
-        public GameStat Stat;
+        public GameStat? Stat;
 
         /// <summary>
         /// 最小值
@@ -146,7 +146,7 @@ public class GameBack : ScriptableObject
         public bool Check()
         {
             if (!Stat) return false;
-            if (!GameManager.Instance.StatsDict.TryGetValue(Stat, out var stat)) return false;
+            if (!GameManager.Instance.StatsDict.TryGetValue(Stat!, out var stat)) return false;
 
             var value = stat.CurrentValue(GameManager.Instance.NotInBase);
             return value >= MinValue && value <= MaxValue;
@@ -199,7 +199,7 @@ public class GameBack : ScriptableObject
     /// </summary>
     /// <param name="card">卡牌</param>
     /// <returns>卡牌绑定的背景，若不存在则返回null</returns>
-    public static GameBack GetBack(CardData card)
+    public static GameBack? GetBack(CardData card)
     {
         return CardMap.TryGetValue(card, out var back) ? back : null;
     }
@@ -209,7 +209,7 @@ public class GameBack : ScriptableObject
     /// </summary>
     /// <param name="stat">状态</param>
     /// <returns>状态绑定的背景列表，若不存在则返回null</returns>
-    public static List<GameBack> GetBack(GameStat stat)
+    public static List<GameBack>? GetBack(GameStat stat)
     {
         return StatMap.TryGetValue(stat, out var back) ? back : null;
     }
@@ -236,7 +236,7 @@ public class GameBack : ScriptableObject
     /// 背景索引器
     /// </summary>
     /// <param name="type">背景类型</param>
-    public BackSet this[BackType type] => type switch
+    public BackSet? this[BackType type] => type switch
     {
         BackType.Base => BaseSet,
         BackType.Env => EnvSet,
