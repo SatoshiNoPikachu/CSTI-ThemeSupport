@@ -6,14 +6,14 @@ using ThemeSupport.ReplaceModule;
 
 namespace ThemeSupport;
 
-[BepInDependency("Pikachu.CSTI.ModCore")]
+[BepInDependency("Pikachu.CSTI.ModCore", ModCoreVersion)]
 [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
 [ModNamespace("ThemeSupport")]
 internal class Plugin : BaseUnityPlugin<Plugin>
 {
     private const string PluginGuid = "Pikachu.CSTIMod.ThemeSupport";
     public const string PluginName = "ThemeSupport";
-    public const string PluginVersion = "3.0.0";
+    public const string PluginVersion = "2.1.0";
 
     private static readonly Harmony Harmony = new(PluginGuid);
 

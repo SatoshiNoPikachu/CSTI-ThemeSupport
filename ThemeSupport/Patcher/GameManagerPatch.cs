@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using HarmonyLib;
+﻿using HarmonyLib;
 using ThemeSupport.GameBackModule;
 
 namespace ThemeSupport.Patcher;

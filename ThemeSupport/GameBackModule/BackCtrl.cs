@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -136,8 +134,7 @@ public class BackCtrl : MBSingleton<BackCtrl>
         var back = GameBack.GetBack(card);
         if (back == null) return;
 
-        if (_cardMap.ContainsKey(back)) _cardMap[back]++;
-        else _cardMap[back] = 1;
+        _cardMap[back] = _cardMap.GetValueOrDefault(back) + 1;
 
         if (GameManager.Instance.IsInitializing) return;
         if (_cardMap[back] != 1) return;

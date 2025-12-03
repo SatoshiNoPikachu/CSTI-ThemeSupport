@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ModCore.Data;
 using UnityEngine;
 
@@ -32,13 +31,8 @@ public class CardUniEx : ScriptableObject
             var card = obj.Card!;
             if (!card) continue;
 
-            if (CardMap.ContainsKey(card))
-            {
-                Plugin.Log.LogWarning($"Card {card.name} has multiple CardUniEx binding.");
-                continue;
-            }
-
-            CardMap.Add(card, obj);
+            if (CardMap.TryAdd(card, obj)) continue;
+            Plugin.Log.LogWarning($"Card {card.name} has multiple CardUniEx binding.");
         }
     }
 

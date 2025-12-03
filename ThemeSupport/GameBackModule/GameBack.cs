@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using ModCore.Data;
 using UnityEngine;
@@ -172,13 +171,11 @@ public class GameBack : ScriptableObject
             {
                 if (card.AlwaysUpdate) continue;
 
-                if (CardMap.ContainsKey(card))
+                if (!CardMap.TryAdd(card, obj))
                 {
                     Plugin.Log.LogWarning($"Card {card.name} has multiple GameBack binding.");
-                    continue;
                 }
 
-                CardMap[card] = obj;
                 continue;
             }
 
@@ -201,7 +198,7 @@ public class GameBack : ScriptableObject
     /// <returns>卡牌绑定的背景，若不存在则返回null</returns>
     public static GameBack? GetBack(CardData card)
     {
-        return CardMap.TryGetValue(card, out var back) ? back : null;
+        return CardMap.GetValueOrDefault(card);
     }
 
     /// <summary>
@@ -211,7 +208,7 @@ public class GameBack : ScriptableObject
     /// <returns>状态绑定的背景列表，若不存在则返回null</returns>
     public static List<GameBack>? GetBack(GameStat stat)
     {
-        return StatMap.TryGetValue(stat, out var back) ? back : null;
+        return StatMap.GetValueOrDefault(stat);
     }
 
     /// <summary>
